@@ -21,7 +21,8 @@ Demo: http://useallfive.github.io/type-ahead/demo
   ];
   var opts = {
     'prefix': 'ua5_typeahead_',
-    'placeholder': 'Search Array'
+    'placeholder': 'Search Array',
+    'match_case': false
   }
   var t = TypeAhead(document.getElementById('test'), data, opts);
 </script>

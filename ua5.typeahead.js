@@ -35,6 +35,14 @@ var TypeAhead = function(_target_input, _data, _opts) {
     }
 
     if (
+      !_opts.hasOwnProperty('match_case') ||
+      "boolean" !== typeof(_opts.match_case)
+    ) {
+      //-- If the user doesn't set a prefix, make it empty:
+      _opts.match_case = false;
+    }
+
+    if (
       !_opts.hasOwnProperty('onChoiceChange') ||
       "function" !== typeof(_opts.onChoiceChange)
     ) {
@@ -119,8 +127,10 @@ var TypeAhead = function(_target_input, _data, _opts) {
    * @return {filter}
    */
   function _nameFilterGenerator(search) {
+    search = (!_opts.match_case) ? search.toLowerCase() : search;
     return function(val, i, data) {
-      return -1 !== val.name.indexOf(search);
+      var name = (!_opts.match_case) ? val.name.toLowerCase() : val.name;
+      return -1 !== name.indexOf(search);
     };
   }
 
