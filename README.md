@@ -20,8 +20,13 @@ Demo: http://useallfive.github.io/type-ahead/demo
     {'name': 'cats', 'value':3}
   ];
   var opts = {
+    //-- Prefix is a string added before
+    //   all of the css selectors added to elements:
     'prefix': 'ua5_typeahead_',
+    //-- HTML5 Placeholder text that shows up in the input
     'placeholder': 'Search Array',
+    //-- Set to false by default. If true searching
+    //   for 'cat' will not return 'Cat'
     'match_case': false
   }
   var t = TypeAhead(document.getElementById('test'), data, opts);
