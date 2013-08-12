@@ -1,0 +1,36 @@
+<html class="no-js" lang="en">
+<head>
+  <style type="text/css">
+    .ua5_typeahead_clear {
+      display: block;
+      width: 25px;
+      height: 25px;
+      background-color: red;
+    }
+    .ua5_typeahead_selected {
+      color: #ddd;
+    }
+   </style>
+</head>
+<body>
+
+<input id="test" type="hidden" />
+
+<script src="../ua5.typeahead.js"></script>
+
+<script>
+  var data = [
+    {'name': 'dog', 'value':1},
+    {'name': 'cat', 'value':2},
+    {'name': 'cats', 'value':3}
+  ];
+  var opts = {
+    'prefix': 'ua5_typeahead_',
+    'placeholder': 'Search Array',
+    'match_case': false
+  }
+  var t = TypeAhead(document.getElementById('test'), data, opts);
+</script>
+
+</body>
+</html>
