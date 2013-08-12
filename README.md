@@ -5,7 +5,7 @@ A very barebones, entirely javascript type ahead/auto-completer. Doesn't require
 
 You simply pass it a hidden field and an array. Add your own styles.
 
-Demo: http://useallfive.github.io/type-ahead/demo
+Demo: http://useallfive.github.io/type-ahead/demo/typeahead-usage.html
 
 ### Usage:
 ```HTML
