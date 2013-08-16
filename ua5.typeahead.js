@@ -82,6 +82,13 @@ var TypeAhead = function(_target_input, _data, _opts) {
 
     //-- Event handlers
     _input_el.onkeyup = _keyupHandler;
+    _input_el.onkeydown = function(event) {
+      event = event || window.event;
+      event.cancelBubble = true;
+      if (event.stopPropagation) {
+        event.stopPropagation();
+      }
+    };
 
     _word_list_el.onclick = function(event) {
       var target;
