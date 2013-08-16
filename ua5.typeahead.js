@@ -179,6 +179,7 @@ var TypeAhead = function(_target_input, _data, _opts) {
           filtered_results = _data.filter(_nameFilterGenerator(search_term));
           //-- Update our list with the results:
           _showResults(filtered_results);
+          _selectLabel(0);
           break;
       }
     }
