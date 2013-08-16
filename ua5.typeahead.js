@@ -9,7 +9,7 @@
  * @param  {Array of objects {name:'string', value: 'string' } } _data
  * @param  {string, optional} _opts.prefix
  *
- * @requires: .filter shim to work in <IE9: http://ua5.co/QkAA
+ * @requires: .filter shim to work in <IE9: http://ua5.co/3O2g3x0q2R2o
  */
 var TypeAhead = function(_target_input, _data, _opts) {
   "use strict";
@@ -84,7 +84,11 @@ var TypeAhead = function(_target_input, _data, _opts) {
     _input_el.onkeyup = _keyupHandler;
 
     _word_list_el.onclick = function(event) {
-      _setSelection(event.target);
+
+      event = event || window.event;
+      var target = event.target || event.srcElement;
+
+      _setSelection(target);
       _clearResults();
     };
 
@@ -144,9 +148,10 @@ var TypeAhead = function(_target_input, _data, _opts) {
     var ESCAPE = 27;
     var UP = 38;
     var filtered_results;
-    var textfield = event.target;
-    var search_term = textfield.value;
+    var search_term = _input_el.value;
     var selected_result;
+
+    event = event || window.event;
 
     //-- Conditions that clear the textbox:
     if (
@@ -161,13 +166,17 @@ var TypeAhead = function(_target_input, _data, _opts) {
           //-- select next result
           _selectLabel(_label_selection+1);
           //-- Restore the cursor position to the end of the text:
-          textfield.setSelectionRange(search_term.length, search_term.length);
+          if (_input_el.setSelectionRange) {
+            _input_el.setSelectionRange(search_term.length, search_term.length);
+          }
           break;
         case UP:
           //-- select previous result
           _selectLabel(_label_selection-1);
           //-- Restore the cursor position to the end of the text:
-          textfield.setSelectionRange(search_term.length, search_term.length);
+          if (_input_el.setSelectionRange) {
+            _input_el.setSelectionRange(search_term.length, search_term.length);
+          }
           break;
         case ENTER:
           _setSelection(_labels[_label_selection]);
@@ -179,8 +188,14 @@ var TypeAhead = function(_target_input, _data, _opts) {
           filtered_results = _data.filter(_nameFilterGenerator(search_term));
           //-- Update our list with the results:
           _showResults(filtered_results);
+          _selectLabel(0);
           break;
       }
+    }
+    event.cancelBubble = true;
+
+    if (event.stopPropagation) {
+      event.stopPropagation();
     }
   }
 
@@ -197,7 +212,7 @@ var TypeAhead = function(_target_input, _data, _opts) {
     //-- Reset all of the labels’ display
     while(i) {
       i--;
-      _labels[i].setAttribute('class', '');
+      _labels[i].className = '';
     }
 
     //-- If index is too high, reset it
@@ -212,7 +227,7 @@ var TypeAhead = function(_target_input, _data, _opts) {
 
     if ("undefined" !== typeof(_labels[_label_selection])) {
       //-- select the current one:
-      _labels[_label_selection].setAttribute('class', _opts.prefix + 'selected');
+      _labels[_label_selection].className = _opts.prefix + 'selected';
     }
   }
 
@@ -229,12 +244,12 @@ var TypeAhead = function(_target_input, _data, _opts) {
     var value;
 
     if (
-      "undefined" !== typeof(el) &&
-      el.hasAttribute('data-value')
+      "undefined" !== typeof el &&
+      el.getAttribute('data-value')
     ) {
 
       value = el.getAttribute('data-value');
-      name = el.textContent;
+      name = el.innerText;
 
       //-- Set our target input value
       _target_input.value = value;
