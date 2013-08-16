@@ -182,6 +182,11 @@ var TypeAhead = function(_target_input, _data, _opts) {
           break;
       }
     }
+    event.cancelBubble = true;
+
+    if (event.hasOwnProperty('stopPropagation')) {
+      event.stopPropagation();
+    }
   }
 
   /**

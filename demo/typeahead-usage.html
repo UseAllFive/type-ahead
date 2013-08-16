@@ -30,6 +30,11 @@
     'match_case': false
   }
   var t = TypeAhead(document.getElementById('test'), data, opts);
+
+  //-- Test to disable parent keyups:
+  document.body.onkeyup = function() {
+    console.log('key up');
+  }
 </script>
 
 </body>
