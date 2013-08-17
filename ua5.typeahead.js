@@ -82,6 +82,9 @@ var TypeAhead = function(_target_input, _data, _opts) {
 
     //-- Event handlers
     _input_el.onkeyup = _keyupHandler;
+    _input_el.onkeydown = function(event) {
+      _stopEvent(event || window.event);
+    };
 
     _word_list_el.onclick = function(event) {
       var target;
@@ -123,6 +126,10 @@ var TypeAhead = function(_target_input, _data, _opts) {
     _display_el.style.display = 'none';
     _input_el.focus();
     _opts.onChoiceChange();
+  }
+
+  function _getInput() {
+    return _input_el;
   }
 
   /**
@@ -193,11 +200,7 @@ var TypeAhead = function(_target_input, _data, _opts) {
           break;
       }
     }
-    event.cancelBubble = true;
-
-    if (event.stopPropagation) {
-      event.stopPropagation();
-    }
+     _stopEvent(event);
   }
 
   /**
@@ -291,5 +294,16 @@ var TypeAhead = function(_target_input, _data, _opts) {
       _labels.push(label);
     }
   }
+
+  function _stopEvent(event) {
+    event.cancelBubble = true;
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+  }
+
+  return {
+    'getInput': _getInput
+  };
 
 };
