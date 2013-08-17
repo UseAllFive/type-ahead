@@ -128,6 +128,10 @@ var TypeAhead = function(_target_input, _data, _opts) {
     _opts.onChoiceChange();
   }
 
+  function _getInput() {
+    return _input_el;
+  }
+
   /**
    * Builds a filter to search the names in the data array.
    *
@@ -297,5 +301,9 @@ var TypeAhead = function(_target_input, _data, _opts) {
       event.stopPropagation();
     }
   }
+
+  return {
+    'getInput': _getInput
+  };
 
 };
